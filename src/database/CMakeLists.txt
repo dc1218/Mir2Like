@@ -8,7 +8,7 @@ include_directories(${CMAKE_SOURCE_DIR}/src/3rd/muduo)
 
 include_directories(${CMAKE_SOURCE_DIR}/src/3rd/yaml-cpp/include)
 
-# install mysql by yourself
+# install mysql by yourself (apt install libmysql++-dev)
 include_directories(/usr/include/mysql)
 
 aux_source_directory(. database_src)
