@@ -15,17 +15,17 @@
 using namespace muduo;
 using namespace muduo::net;
 
-class EchoServer
+class LoginGateServer
 {
  public:
-  EchoServer(EventLoop* loop, const InetAddress& listenAddr)
+  LoginGateServer(EventLoop* loop, const InetAddress& listenAddr)
     : loop_(loop),
-      server_(loop, listenAddr, "EchoServer")
+      server_(loop, listenAddr, "LoginGateServer")
   {
     server_.setConnectionCallback(
-        std::bind(&EchoServer::onConnection, this, _1));
+        std::bind(&LoginGateServer::onConnection, this, _1));
     server_.setMessageCallback(
-        std::bind(&EchoServer::onMessage, this, _1, _2, _3));
+        std::bind(&LoginGateServer::onMessage, this, _1, _2, _3));
   }
 
   void start()
@@ -42,14 +42,14 @@ class EchoServer
   TcpServer server_;
 };
 
-void EchoServer::onConnection(const TcpConnectionPtr& conn)
+void LoginGateServer::onConnection(const TcpConnectionPtr& conn)
 {
   LOG_TRACE << conn->peerAddress().toIpPort() << " -> "
             << conn->localAddress().toIpPort() << " is "
             << (conn->connected() ? "UP" : "DOWN");
 }
 
-void EchoServer::onMessage(const TcpConnectionPtr& conn, Buffer* buf, Timestamp time)
+void LoginGateServer::onMessage(const TcpConnectionPtr& conn, Buffer* buf, Timestamp time)
 {
   string msg(buf->retrieveAllAsString());
   LOG_TRACE << conn->name() << " recv " << msg.size() << " bytes at " << time.toString();
@@ -80,8 +80,8 @@ int main(int argc, char* argv[])
 
   LOG_INFO << "pid = " << getpid() << ", tid = " << CurrentThread::tid();
   EventLoop loop;
-  InetAddress listenAddr(2007);
-  EchoServer server(&loop, listenAddr);
+  InetAddress listenAddr(7000);
+  LoginGateServer server(&loop, listenAddr);
 
   server.start();
 
