@@ -1,5 +1,5 @@
-#ifndef __UMYSQL_H__
-#define __UMYSQL_H__
+#ifndef __M2L__UMYSQL_H__
+#define __M2L__UMYSQL_H__
 
 #include <mysql/mysql.h>
 #include <memory>

@@ -10,6 +10,6 @@ aux_source_directory(. LoginGate_src)
 
 add_executable(${PROJECT_NAME} ${LoginGate_src})
 
-target_link_libraries(${PROJECT_NAME} muduo_net)
 target_link_libraries(${PROJECT_NAME} muduo_base)
+target_link_libraries(${PROJECT_NAME} muduo_net)
 target_link_libraries(${PROJECT_NAME} pthread rt)
